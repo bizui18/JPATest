@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.JPATest.mapper.LottoMapper">
+
+	<select id="getTop6LottoNo" parameterType="string" resultType="camelMap">
+		SELECT DRWT_NO
+		     , COUNT(DRWT_NO) AS CNT 
+		  FROM ( 
+		         SELECT DRWT_NO1 AS DRWT_NO FROM lotto_info WHERE DRW_NO <![CDATA[<=]]>#{param}
+		         UNION ALL
+		         SELECT DRWT_NO2 AS DRWT_NO FROM lotto_info WHERE DRW_NO <![CDATA[<=]]>#{param}
+		         UNION ALL
+		         SELECT DRWT_NO3 AS DRWT_NO FROM lotto_info WHERE DRW_NO <![CDATA[<=]]>#{param}
+		         UNION ALL
+		         SELECT DRWT_NO4 AS DRWT_NO FROM lotto_info WHERE DRW_NO <![CDATA[<=]]>#{param}
+		         UNION ALL
+		         SELECT DRWT_NO5 AS DRWT_NO FROM lotto_info WHERE DRW_NO <![CDATA[<=]]>#{param}
+		         UNION ALL
+		         SELECT DRWT_NO6 AS DRWT_NO FROM lotto_info WHERE DRW_NO <![CDATA[<=]]>#{param}
+		         UNION ALL
+		         SELECT BNUS_NO AS DRWT_NO FROM lotto_info WHERE DRW_NO <![CDATA[<=]]>#{param}
+		       ) A
+		 GROUP BY DRWT_NO
+		 ORDER BY CNT DESC
+		 LIMIT 6
+	</select>	
+
+</mapper>
